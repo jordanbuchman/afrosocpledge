@@ -487,6 +487,11 @@ function imagesAreNowLoaded(){
 	var logoHeight = logoWidth/3;
 	ctx.drawImage(imgs[BERNIE], w*0.97-logoWidth, h*0.97-logoHeight, logoWidth, logoHeight);
 
+	canvas.toBlob(function(blob) {
+        $("a#download").attr('href', URL.createObjectURL(blob));
+        $("a#download").attr('download', "OEA_Pledge.png");
+	});
+
 	var saveContainer = document.getElementById('saveContainer');
 	saveContainer.style.display = 'block';		// reveal all!
 
