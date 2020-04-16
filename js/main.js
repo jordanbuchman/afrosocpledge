@@ -44,7 +44,7 @@ const prepareFontLoad = (fontList) => Promise.all(fontList.map(font => document.
 
 async function startGeneratingImage() {
 
-	const fontList = ['700 60px Montserrat', '700 italic 60px Montserrat', '700 60px freight-sans-pro', '500 60px freight-sans-pro', ]
+	const fontList = ['700 60px Montserrat', '600 60px Montserrat', '800 60px Montserrat' ]
 	await prepareFontLoad(fontList);
 
 	// the loaded images will be placed in imgs[]
