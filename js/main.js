@@ -3,6 +3,7 @@
 var endorseeInfo;	// dictionary - name, office, caucus
 var name;
 var job;
+var school;
 var quotation;
 var volunteer;
 var doorknocking;
@@ -34,7 +35,7 @@ const BERNIE = 2
 const STATE = 3
 const CANDIDATE = 4
 
-const dsared = '#ec1f2b';
+const dsared = '#6AAD44';
 
 // https://stackoverflow.com/a/53636623/25560
 const prepareFontLoad = (fontList) => Promise.all(fontList.map(font => document.fonts.load(font)));
@@ -43,17 +44,17 @@ const prepareFontLoad = (fontList) => Promise.all(fontList.map(font => document.
 
 async function startGeneratingImage() {
 
-	const fontList = ['700 60px Jubilat', '700 italic 60px Jubilat', '700 60px freight-sans-pro', '500 60px freight-sans-pro', ]
+	const fontList = ['700 60px Montserrat', '700 italic 60px Montserrat', '700 60px freight-sans-pro', '500 60px freight-sans-pro', ]
 	await prepareFontLoad(fontList);
 
 	// the loaded images will be placed in imgs[]
 	imgs=[];
 
 	imageURLs=[];
-	imageURLs.push(avatarImageSrc ? avatarImageSrc : "/img/logo-dsa-bw-transparent.png");
+	imageURLs.push(avatarImageSrc ? avatarImageSrc : "/img/oea-square.png");
 
-	imageURLs.push('/img/' + background);
-	imageURLs.push("/img/logo-dsa-bw-transparent.png");
+	imageURLs.push('/img/background.jpeg');
+	imageURLs.push("/img/oea.png");
 
 	imagesOK=0;
 	startLoadingAllImages(imagesAreNowLoaded);
@@ -176,61 +177,77 @@ function imagesAreNowLoaded(){
 	ctx.strokeStyle = 'white';
 	ctx.stroke();
 
-	// ----------------------------------------------------- Job Title
+	// ----------------------------------------------------- #OEA4Families
 
-	ctx.font = "700 " + String(30 * h/1000) + "px freight-sans-pro, monospace";
-	ctx.textAlign = "left"
+	var hashtag = "#OEA4Families"
+	ctx.font = "800 " + String(45 * h/1000) + "px Montserrat, sans-serif";
+	ctx.textAlign = "right"
 
-	var textWidth = ctx.measureText(job+ " ").width;
-	var textX = w*0.051
+	var hashtagWidth = ctx.measureText(hashtag).width;
+	var hashtagX= w*0.03
+
+	ctx.fillStyle = '#F8E71D';
+	ctx.fillRect(w-hashtagWidth-hashtagX*2, h*0.05, hashtagWidth+hashtagX*2, h*0.08);
 
 	ctx.fillStyle = 'black';
-	ctx.fillRect(0, h*0.39, textX+textWidth, h*0.036)
 
-	ctx.fillStyle = 'white';
+	ctx.fillText(hashtag, w-hashtagX, h*0.105, w*0.9);
 
-	ctx.fillText(job, textX, h*0.415, w*0.9);
+	// ----------------------------------------------------- Job Title and School
+
+	ctx.font = "800 " + String(30 * h/1000) + "px Montserrat, sans-serif";
+	ctx.textAlign = "left"
+
+	var jobWidth = ctx.measureText(job+ " ").width;
+	var jobX = w*0.01
+
+	var schoolWidth = ctx.measureText(school+ " ").width;
+	var schoolX = w*0.01
+
+	ctx.fillStyle = '#F8E71D';
+	ctx.fillRect(0, h*0.344, Math.max(schoolWidth, jobWidth)+jobX, h*0.082)
+
+	ctx.fillStyle = 'black';
+
+	ctx.fillText(job, jobX, h*0.376, w*0.9);
+	ctx.fillText(school, schoolX, h*0.411, w*0.9);
 
 	// ----------------------------------------------------- Name + Endorses ______
 
-	var endorses = "joined ";//(plural ? "endorse" : "endorses") + " ";
-	var endorseeName = "DSA";//endorseeInfo.name;
+	var endorses = "";//(plural ? "endorse" : "endorses") + " ";
+	var endorseeName = "stands with Oakland families";//endorseeInfo.name;
 
-	var fontSize = 112 * w/1000;
-	ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
+	var fontSize = 90 * w/1000;
+	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 
 	var textWidth1 = ctx.measureText(name).width;
 
 
-	ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+	ctx.font = "800 italic " + String(fontSize) + "px Montserrat,sans-serif";
 	var textWidth2a = ctx.measureText(endorses).width;
-	ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
+	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 	var textWidth2 = textWidth2a + ctx.measureText(endorseeName).width;
 
 
 
 	// Make sure user's and "endorses" + endorsee's name fits
 
-	if (textWidth1 > w * 0.9 || textWidth2 > w*0.9) {
-		fontSize *= w*0.9/Math.max(textWidth1, textWidth2);
-		ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
-
+	if (textWidth1 > w * 0.9) {
+		fontSize *= w*0.9/textWidth1;
+		ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 		// Recalc widths based on new size
 		textWidth1 = ctx.measureText(name).width;
-		ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
-		textWidth2a = ctx.measureText(endorses).width;
-		ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
-		textWidth2 = textWidth2a + ctx.measureText(endorseeName).width;
 	}
+	
 
 	var ascent = fontSize * 0.74;
-	var extra = h * 0.005;
+	var extra = h * 0.01;
 
 	var y = h*0.52;
 	textX = w*0.058
 
 	ctx.fillStyle = dsared;
-	ctx.fillRect(textX, y-ascent-extra, textWidth1, ascent+2*extra);
+	ctx.fillRect(textX-extra, y-ascent-extra, textWidth1+extra*2, ascent+2*extra);
 
 	ctx.fillStyle = 'white';
 	ctx.fillText(name, textX, y, textWidth1);
@@ -238,50 +255,81 @@ function imagesAreNowLoaded(){
 
 
 
-	y = h*0.62;
+	// stands with Oakland families
+
+	if (textWidth2 > w*0.9) {
+		fontSize *= w*0.9/textWidth2;
+		// Recalc widths based on new size
+		ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
+		textWidth2 = textWidth2a + ctx.measureText(endorseeName).width;
+	}
+
+	y2 = h*0.60
+
 
 	ctx.fillStyle = dsared;
-	ctx.fillRect(textX, y-ascent-extra, textWidth2, ascent+2*extra);  // background of entire width - endorses + name
+	//ctx.fillRect(textX, y2-ascent-extra, textWidth2, ascent+2*extra);  // background of entire width - endorses + name
 
-	ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+	ctx.font = "800 italic " + String(fontSize) + "px Montserrat,sans-serif";
 
 	ctx.fillStyle = 'white';
-	ctx.fillText(endorses, textX, y, textWidth2a);
+	ctx.fillText(endorses, textX, y2, textWidth2a);
 
 	textX += textWidth2a;
-	ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
+	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 
 	textWidth2 = ctx.measureText(endorseeName).width
 
 	ctx.fillStyle = 'white';
-	ctx.fillText(endorseeName, textX, y, textWidth2);
+	ctx.fillText(endorseeName, textX, y2, textWidth2);
 
 
-	var andBernieText = "Join today at dsausa.org/join";
+	// Take the stimulus pledge today! ------------
 
-	fontSize = 80 * h/1000;
-	ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+	var andBernieText = "Take the stimulus pledge today!";
+
+	fontSize = 43 * h/1000;
+	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 	var textWidth4 = ctx.measureText(andBernieText).width
 
 	if (textWidth4 + textX > w * 0.8) {
 		fontSize *= w*0.8/textWidth4;
-		ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+		ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
 
 		// Recalc width based on new size
 		textWidth4 = ctx.measureText(andBernieText).width;
 	}
 
 	ascent = fontSize * 0.74;
-	y = h*.93;
+	y = h*.90;
 	textX = w*0.058
-
-
-	ctx.fillStyle = dsared;
-	ctx.fillRect(textX-extra, y-ascent-extra, textWidth4+2*extra, ascent+2*extra);
 
 	ctx.fillStyle = 'white';
 	ctx.fillText(andBernieText, textX, y, textWidth4);
 
+
+	// tinyurl.com/OEA4Families ------------
+
+	andBernieText = "tinyurl.com/OEA4Families";
+
+	fontSize = 40 * h/1000;
+	ctx.font = "700 " + String(fontSize) + "px Montserrat,sans-serif";
+	textWidth4 = ctx.measureText(andBernieText).width
+
+	if (textWidth4 + textX > w * 0.8) {
+		fontSize *= w*0.8/textWidth4;
+		ctx.font = "700 " + String(fontSize) + "px Montserrat,sans-serif";
+
+		// Recalc width based on new size
+		textWidth4 = ctx.measureText(andBernieText).width;
+	}
+
+	ascent = fontSize * 0.74;
+	y = h*.95;
+	textX = w*0.058
+
+	ctx.fillStyle = 'white';
+	ctx.fillText(andBernieText, textX, y, textWidth4);
 
 	// Third & fourth lines (but not for Bernie)
 
@@ -292,12 +340,12 @@ function imagesAreNowLoaded(){
   //
 	// 	var officeText = "for " + endorseeInfo.officeText;
 	// 	fontSize = 80 * h/1000;
-	// 	ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
+	// 	ctx.font = "700 " + String(fontSize) + "px Montserrat,sans-serif";
 	// 	textWidth3 = ctx.measureText(officeText).width
   //
 	// 	if (textWidth3 + textX > w * 0.9) {
 	// 		fontSize *= w*0.5/textWidth3;
-	// 		ctx.font = "700 " + String(fontSize) + "px Jubilat,monospace";
+	// 		ctx.font = "700 " + String(fontSize) + "px Montserrat,sans-serif";
   //
 	// 		// Recalc width based on new size
 	// 		textWidth3 = ctx.measureText(officeText).width;
@@ -317,12 +365,12 @@ function imagesAreNowLoaded(){
 	// 	var andBernieText = "& Bernie Sanders for President";
   //
 	// 	fontSize = 80 * h/1000;
-	// 	ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+	// 	ctx.font = "700 italic " + String(fontSize) + "px Montserrat,sans-serif";
 	// 	var textWidth4 = ctx.measureText(andBernieText).width
   //
 	// 	if (textWidth4 + textX > w * 0.8) {
 	// 		fontSize *= w*0.8/textWidth4;
-	// 		ctx.font = "700 italic " + String(fontSize) + "px Jubilat,monospace";
+	// 		ctx.font = "700 italic " + String(fontSize) + "px Montserrat,sans-serif";
   //
 	// 		// Recalc width based on new size
 	// 		textWidth4 = ctx.measureText(andBernieText).width;
@@ -348,26 +396,26 @@ function imagesAreNowLoaded(){
 
 	// ----------------------------------------------------- Quote Mark
 
-	ctx.font = "700 " + String(150 * h/1000) + "px Jubilat,monospace";
-	ctx.fillStyle = 'rgba(255,255,255,0.5)';
-	ctx.fillText("“", w*0.031, h*0.77, w*0.9);
+	ctx.font = "700 " + String(170 * h/1000) + "px Montserrat,sans-serif";
+	ctx.fillStyle = 'rgba(248, 231, 29, 0.5)';
+	ctx.fillText("“", w*0.031, h*0.75, w*0.9);
 
 
 	// ----------------------------------------------------- Paragraph Text
 	var setting = {
 			maxSpaceSize : 6,
 			minSpaceSize : 0.5,
-			lineSpacing : 1.07,
+			lineSpacing : 1.2,
 			compact : false
 	}
 
 	ctx.textAlign = "left";
 	ctx.fillStyle = "transparent";
 
-	var endquote = "”";
+	var endquote = "";
 	var left = w*.09;
 	var wid = w*.82;
-	var origY = h*0.72;
+	var origY = h*0.67;
 	var size;
 	var volSize;
 
@@ -376,13 +424,13 @@ function imagesAreNowLoaded(){
 	for(size = 50 ; size > 15 ; size -= 1) {
 
 		y = origY;
-		ctx.font = "700 " + String(size * h/1000) + "px freight-sans-pro, monospace";
+		ctx.font = "600 " + String(size * h/1000) + "px Montserrat, sans-serif";
 
 		// Draw paragraph
 		var line = ctx.fillParaText(quotation+endquote, left, y, wid, setting);  // settings is remembered
 
     y = line.nextLine;
-		if (y < h * 0.90) {
+		if (y < h * 0.87) {
 			break;  // it fits, so really draw now.
 		}
 	}
@@ -395,7 +443,7 @@ function imagesAreNowLoaded(){
 
 	ctx.fillStyle = "white";
 	y = origY;
-	ctx.font = "700 " + String(size * h/1000) + "px freight-sans-pro, monospace";
+	ctx.font = "600 " + String(size * h/1000) + "px Montserrat, sans-serif";
 	line = ctx.fillParaText(quotation+endquote, left, y, wid, setting);  // settings is remembered
 	// if (volunteer) {
 	// 	ctx.font = "500 " + String(volSize * h/1000) + "px freight-sans-pro, monospace";
@@ -435,8 +483,9 @@ function imagesAreNowLoaded(){
 	// ctx.fillText("Continuing the Political Revolution", w*0.051, h*0.98, w*0.9);
 
 
-	var logoWidth = w*0.10;
-	ctx.drawImage(imgs[BERNIE], w*0.88, h*0.88, logoWidth, logoWidth);
+	var logoWidth = w*0.22;
+	var logoHeight = logoWidth/3;
+	ctx.drawImage(imgs[BERNIE], w*0.97-logoWidth, h*0.97-logoHeight, logoWidth, logoHeight);
 
 	var saveContainer = document.getElementById('saveContainer');
 	saveContainer.style.display = 'block';		// reveal all!
