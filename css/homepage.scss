@@ -1,3 +1,12 @@
+html, body {
+    max-width: 100%;
+	overflow-x: hidden;
+	background-color: white;
+}
+
+.rolebreaker {
+	display:none
+}
 
 .swatch {
 	height:1.5em;
@@ -66,14 +75,34 @@ body > header {
 
 	.ksbox.half {
 		width:100%;
+		//display: inline-block;
+		padding: 0;
+		margin: 0 auto;
+	}
+
+	.group {
+		text-align: center;
+	}
+
+	.rolebreaker {
+		display:block
+	}
+
+	footer {
+		margin-top: 15px;
+	}
+	.button {
+		//margin-bottom: 20px !important;
+		display: block;
 	}
 
 }
 
 
+
 .button {
 	padding:1em;
-	background-color:green;
+	background-color:#ea2629;
 	color:white;
 	font-weight:bold;
 	text-decoration:none;

@@ -35,7 +35,11 @@ const BERNIE = 2
 const STATE = 3
 const CANDIDATE = 4
 
-const dsared = '#6AAD44';
+// #bcbdc2 grey
+// #ea2629 red
+
+
+const dsared = '#ea2629';
 
 // https://stackoverflow.com/a/53636623/25560
 const prepareFontLoad = (fontList) => Promise.all(fontList.map(font => document.fonts.load(font)));
@@ -51,10 +55,10 @@ async function startGeneratingImage() {
 	imgs=[];
 
 	imageURLs=[];
-	imageURLs.push(avatarImageSrc ? avatarImageSrc : "img/oea-square.png");
+	imageURLs.push(avatarImageSrc ? avatarImageSrc : "img/cwa.png");
 
 	imageURLs.push('img/background.jpeg');
-	imageURLs.push("img/oea.png");
+	imageURLs.push("img/cwa.png");
 
 	imagesOK=0;
 	startLoadingAllImages(imagesAreNowLoaded);
@@ -178,7 +182,7 @@ function imagesAreNowLoaded(){
 	ctx.stroke();
 
 	// ----------------------------------------------------- #OEA4Families
-
+/* 
 	var hashtag = "#OEA4Families"
 	ctx.font = "800 " + String(45 * h/1000) + "px Montserrat, sans-serif";
 	ctx.textAlign = "right"
@@ -191,7 +195,7 @@ function imagesAreNowLoaded(){
 
 	ctx.fillStyle = 'black';
 
-	ctx.fillText(hashtag, w-hashtagX, h*0.105, w*0.9);
+	ctx.fillText(hashtag, w-hashtagX, h*0.105, w*0.9); */
 
 	// ----------------------------------------------------- Job Title and School
 
@@ -204,10 +208,10 @@ function imagesAreNowLoaded(){
 	var schoolWidth = ctx.measureText(school+ " ").width;
 	var schoolX = w*0.01
 
-	ctx.fillStyle = '#F8E71D';
+	ctx.fillStyle = '#ea2629';
 	ctx.fillRect(0, h*0.344, Math.max(schoolWidth, jobWidth)+jobX, h*0.082)
 
-	ctx.fillStyle = 'black';
+	ctx.fillStyle = 'white';
 
 	ctx.fillText(job, jobX, h*0.376, w*0.9);
 	ctx.fillText(school, schoolX, h*0.411, w*0.9);
@@ -215,7 +219,7 @@ function imagesAreNowLoaded(){
 	// ----------------------------------------------------- Name + Endorses ______
 
 	var endorses = "";//(plural ? "endorse" : "endorses") + " ";
-	var endorseeName = "stands with Oakland families";//endorseeInfo.name;
+	var endorseeName = "supports PAL-CWA";//endorseeInfo.name;
 
 	var fontSize = 90 * w/1000;
 	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
@@ -286,7 +290,8 @@ function imagesAreNowLoaded(){
 
 	// Take the stimulus pledge today! ------------
 
-	var andBernieText = "Take the stimulus pledge today!";
+	// var andBernieText = "Tell us why you support PAL-CWA!";
+	var andBernieText = "Sign the petition today!";
 
 	fontSize = 43 * h/1000;
 	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
@@ -310,7 +315,7 @@ function imagesAreNowLoaded(){
 
 	// tinyurl.com/OEA4Families ------------
 
-	andBernieText = "tinyurl.com/OEA4Families";
+	andBernieText = "bit.ly/ISupportPAL";
 
 	fontSize = 40 * h/1000;
 	ctx.font = "700 " + String(fontSize) + "px Montserrat,sans-serif";
@@ -397,7 +402,7 @@ function imagesAreNowLoaded(){
 	// ----------------------------------------------------- Quote Mark
 
 	ctx.font = "700 " + String(170 * h/1000) + "px Montserrat,sans-serif";
-	ctx.fillStyle = 'rgba(248, 231, 29, 0.5)';
+	ctx.fillStyle = '#bcbdc2cc'; //'rgba(248, 231, 29, 0.5)';
 	ctx.fillText("“", w*0.031, h*0.75, w*0.9);
 
 
@@ -483,13 +488,13 @@ function imagesAreNowLoaded(){
 	// ctx.fillText("Continuing the Political Revolution", w*0.051, h*0.98, w*0.9);
 
 
-	var logoWidth = w*0.22;
-	var logoHeight = logoWidth/3;
+	var logoWidth = w*0.13;
+	var logoHeight = logoWidth;
 	ctx.drawImage(imgs[BERNIE], w*0.97-logoWidth, h*0.97-logoHeight, logoWidth, logoHeight);
 
 	canvas.toBlob(function(blob) {
         $("a#download").attr('href', URL.createObjectURL(blob));
-        $("a#download").attr('download', "OEA_Pledge.png");
+        $("a#download").attr('download', "Support_PAL-CWA.png");
 	});
 
 	var saveContainer = document.getElementById('saveContainer');

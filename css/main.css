@@ -785,7 +785,7 @@ Typography
 */
 body {
   font: 20px/1.6 Montserrat, sans-serif;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 dt {
@@ -975,6 +975,16 @@ img.half {
     padding: 0;
   }
 }
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: white;
+}
+
+.rolebreaker {
+  display: none;
+}
+
 .swatch {
   height: 1.5em;
   width: 3.3em;
@@ -1042,11 +1052,29 @@ body > header {
 @media only screen and (max-width: 629px) {
   .ksbox.half {
     width: 100%;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  .group {
+    text-align: center;
+  }
+
+  .rolebreaker {
+    display: block;
+  }
+
+  footer {
+    margin-top: 15px;
+  }
+
+  .button {
+    display: block;
   }
 }
 .button {
   padding: 1em;
-  background-color: green;
+  background-color: #ea2629;
   color: white;
   font-weight: bold;
   text-decoration: none;
