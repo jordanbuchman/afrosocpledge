@@ -291,7 +291,7 @@ function imagesAreNowLoaded(){
 	// Take the stimulus pledge today! ------------
 
 	// var andBernieText = "Tell us why you support PAL-CWA!";
-	var andBernieText = "Sign the petition today!";
+	var andBernieText = "Tell the School Board: Vote Yes on Our Union!";
 
 	fontSize = 43 * h/1000;
 	ctx.font = "800 " + String(fontSize) + "px Montserrat,sans-serif";
@@ -307,7 +307,7 @@ function imagesAreNowLoaded(){
 
 	ascent = fontSize * 0.74;
 	y = h*.90;
-	textX = w*0.058
+	textX = w*0.038
 
 	ctx.fillStyle = 'white';
 	ctx.fillText(andBernieText, textX, y, textWidth4);
@@ -331,7 +331,7 @@ function imagesAreNowLoaded(){
 
 	ascent = fontSize * 0.74;
 	y = h*.95;
-	textX = w*0.058
+	textX = w*0.038
 
 	ctx.fillStyle = 'white';
 	ctx.fillText(andBernieText, textX, y, textWidth4);
@@ -490,7 +490,7 @@ function imagesAreNowLoaded(){
 
 	var logoWidth = w*0.13;
 	var logoHeight = logoWidth;
-	ctx.drawImage(imgs[BERNIE], w*0.97-logoWidth, h*0.97-logoHeight, logoWidth, logoHeight);
+	ctx.drawImage(imgs[BERNIE], w*0.985-logoWidth, h*0.985-logoHeight, logoWidth, logoHeight);
 
 	canvas.toBlob(function(blob) {
         $("a#download").attr('href', URL.createObjectURL(blob));
